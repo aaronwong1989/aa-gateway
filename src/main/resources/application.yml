@@ -1,0 +1,32 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: zy-gateway
+  # \u6570\u636E\u5E93\u914D\u7F6E
+  data:
+    mongodb:
+      host: 192.168.56.129
+      port: 27017
+
+gateway:
+  configs:
+    collection-name: gateway_routers
+
+# \u914D\u7F6E\u8F93\u51FA\u65E5\u5FD7
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    cn.com.zybank.gateway: DEBUG
+    sun.rmi: ERROR
+    org.mongodb.driver: ERROR
+
+
+#\u5F00\u542F\u7AEF\u70B9
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
