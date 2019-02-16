@@ -1,17 +1,15 @@
-package cn.com.zybank.gateway.dao.repository;
+package cn.com.zybank.gateway.repository;
 
 import cn.com.zybank.gateway.GatewayRoutesRefresher;
-import cn.com.zybank.gateway.dao.entity.MongoRouteDefinition;
+import cn.com.zybank.gateway.entity.MongoRouteDefinition;
 import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.cloud.gateway.support.NotFoundException;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

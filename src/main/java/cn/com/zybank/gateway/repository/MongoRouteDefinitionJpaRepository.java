@@ -1,6 +1,6 @@
-package cn.com.zybank.gateway.dao.repository;
+package cn.com.zybank.gateway.repository;
 
-import cn.com.zybank.gateway.dao.entity.MongoRouteDefinition;
+import cn.com.zybank.gateway.entity.MongoRouteDefinition;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
 /**
