@@ -1,4 +1,4 @@
-package cn.com.zybank.gateway;
+package cn.com.zybank.gateway.config;
 
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.context.ApplicationEventPublisher;

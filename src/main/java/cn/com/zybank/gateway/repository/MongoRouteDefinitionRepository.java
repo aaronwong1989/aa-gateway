@@ -1,6 +1,6 @@
 package cn.com.zybank.gateway.repository;
 
-import cn.com.zybank.gateway.GatewayRoutesRefresher;
+import cn.com.zybank.gateway.config.GatewayRoutesRefresher;
 import cn.com.zybank.gateway.entity.MongoRouteDefinition;
 import java.net.URI;
 import java.util.Map;
@@ -85,7 +85,7 @@ public class MongoRouteDefinitionRepository implements RouteDefinitionRepository
       refresher.refreshRoutes();
 
       //TODO 不调用.subscribe()数据库中就没有, Why?
-      mongoJpa.save(mongoRouteDefinition).log().subscribe();
+      mongoJpa.saveAll(Mono.just(mongoRouteDefinition)).log().subscribe();
 
       return Mono.empty();
     });
@@ -104,11 +104,11 @@ public class MongoRouteDefinitionRepository implements RouteDefinitionRepository
     return routeId.flatMap(id -> {
       if (routes.containsKey(id)) {
         routes.remove(id);
+        refresher.refreshRoutes();
         if (log.isDebugEnabled()) {
           log.debug("delete RouteDefinitions from db");
         }
-        mongoJpa.deleteById(routeId);
-        refresher.refreshRoutes();
+        mongoJpa.deleteById(routeId).log().subscribe();
         return Mono.empty();
       }
       return Mono
