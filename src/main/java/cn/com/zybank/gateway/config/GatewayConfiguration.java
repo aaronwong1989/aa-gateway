@@ -1,9 +1,19 @@
 package cn.com.zybank.gateway.config;
 
+import static org.springframework.web.reactive.function.server.RequestPredicates.DELETE;
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
+import static org.springframework.web.reactive.function.server.RequestPredicates.accept;
+
+import cn.com.zybank.gateway.handler.RouteManagementHandler;
 import cn.com.zybank.gateway.service.GatewayRouteDefinitionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
+import org.springframework.web.reactive.function.server.ServerResponse;
 
 /**
  * @author Aaron
@@ -26,4 +36,13 @@ public class GatewayConfiguration {
     };
   }
 
+  @Bean
+  public RouterFunction<ServerResponse> routeCity(RouteManagementHandler handler) {
+    return RouterFunctions
+        .route(POST("/gw-mgr/routes").and(accept(MediaType.APPLICATION_JSON)), handler::save)
+        .andRoute(GET("/gw-mgr/routes").and(accept(MediaType.APPLICATION_JSON)), handler::queryAll)
+        .andRoute(GET("/gw-mgr/routes/{routeId}").and(accept(MediaType.APPLICATION_JSON)),handler::queryOne)
+        .andRoute(DELETE("/gw-mgr/routes/{routeId}").and(accept(MediaType.APPLICATION_JSON)),handler::delete)
+        ;
+  }
 }

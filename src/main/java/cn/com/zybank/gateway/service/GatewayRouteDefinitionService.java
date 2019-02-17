@@ -85,9 +85,10 @@ public class GatewayRouteDefinitionService implements RouteDefinitionRepository 
   public Mono<RouteDefinition> deleteBy(Mono<String> routeId) {
     return routeId.flatMap(id -> {
       if (routes.containsKey(id)) {
+        RouteDefinition tmp = routes.get(id);
         routes.remove(id);
         refresher.refreshRoutes();
-        return Mono.justOrEmpty(routes.get(id));
+        return Mono.just(tmp);
       }
       return Mono.empty();
     });
