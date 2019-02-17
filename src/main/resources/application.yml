@@ -10,10 +10,6 @@ spring:
       host: 192.168.56.129
       port: 27017
 
-gateway:
-  configs:
-    collection-name: gateway_routers
-
 # \u914D\u7F6E\u8F93\u51FA\u65E5\u5FD7
 logging:
   level:
@@ -23,10 +19,10 @@ logging:
     org.mongodb.driver: ERROR
 
 
-#\u5F00\u542F\u7AEF\u70B9
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
+#\u5F00\u542F\u7AEF\u70B9, \u5F00\u53D1\u5B8C\u6210\u8FD9\u4E2A\u529F\u80FD\u540E\u5C31\u53EF\u4EE5\u6CE8\u91CA\u6389\u4E0B\u9762\u914D\u7F6E\u4E86
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
 
