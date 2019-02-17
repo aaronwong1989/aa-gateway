@@ -1,6 +1,7 @@
-package cn.com.zybank.gateway.repository;
+package cn.com.zybank.gateway.service;
 
 import cn.com.zybank.gateway.config.GatewayRoutesRefresher;
+import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
 import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -19,7 +20,7 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @Slf4j
-public class GatewayRouteDefinitionRepository implements RouteDefinitionRepository {
+public class GatewayRouteDefinitionService implements RouteDefinitionRepository {
 
   private final Map<String, RouteDefinition> routes = new ConcurrentHashMap<>(256);
 
@@ -27,7 +28,7 @@ public class GatewayRouteDefinitionRepository implements RouteDefinitionReposito
   private final MongoRouteDefinitionRepository mongoJpa;
 
   @Autowired
-  public GatewayRouteDefinitionRepository(
+  public GatewayRouteDefinitionService(
       MongoRouteDefinitionRepository mongoJpa,
       GatewayRoutesRefresher refresher) {
     this.mongoJpa = mongoJpa;

@@ -1,7 +1,7 @@
 package cn.com.zybank.gateway.controller;
 
 import cn.com.zybank.gateway.entity.MongoRouteDefinition;
-import cn.com.zybank.gateway.repository.GatewayRouteDefinitionRepository;
+import cn.com.zybank.gateway.service.GatewayRouteDefinitionService;
 import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
 import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
@@ -26,13 +26,13 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/gw-mgr/routes")
 @Slf4j
-public class RouteManagementAction {
+public class RouteManagementController {
 
-  private final GatewayRouteDefinitionRepository routerWriter;
+  private final GatewayRouteDefinitionService routerWriter;
   private final MongoRouteDefinitionRepository mongoJpa;
 
   @Autowired
-  public RouteManagementAction(GatewayRouteDefinitionRepository routerWriter,
+  public RouteManagementController(GatewayRouteDefinitionService routerWriter,
       MongoRouteDefinitionRepository mongoJpa) {
     this.routerWriter = routerWriter;
     this.mongoJpa = mongoJpa;

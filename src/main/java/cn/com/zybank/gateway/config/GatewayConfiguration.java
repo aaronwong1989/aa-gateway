@@ -1,6 +1,6 @@
 package cn.com.zybank.gateway.config;
 
-import cn.com.zybank.gateway.repository.GatewayRouteDefinitionRepository;
+import cn.com.zybank.gateway.service.GatewayRouteDefinitionService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +11,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class GatewayConfiguration {
 
-  private final GatewayRouteDefinitionRepository routerWriter;
+  private final GatewayRouteDefinitionService routerWriter;
 
   public GatewayConfiguration(
-      GatewayRouteDefinitionRepository routerWriter) {
+      GatewayRouteDefinitionService routerWriter) {
     this.routerWriter = routerWriter;
   }
 
