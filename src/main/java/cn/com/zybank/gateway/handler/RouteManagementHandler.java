@@ -1,10 +1,11 @@
 package cn.com.zybank.gateway.handler;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
 import cn.com.zybank.gateway.entity.MongoRouteDefinition;
 import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
-import cn.com.zybank.gateway.service.GatewayRouteDefinitionService;
+import cn.com.zybank.gateway.service.MongoRouteDefinitionLocator;
 import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +25,22 @@ import reactor.core.publisher.Mono;
 @Component
 public class RouteManagementHandler {
 
-  private final GatewayRouteDefinitionService routerWriter;
+  /**
+   * 用于写缓存,并通知gateway更新路由信息
+   */
+  private final MongoRouteDefinitionLocator routerWriter;
+  /**
+   * 更新mongoDB
+   */
   private final MongoRouteDefinitionRepository mongoJpa;
 
   @Autowired
-  public RouteManagementHandler(GatewayRouteDefinitionService routerWriter,
+  public RouteManagementHandler(MongoRouteDefinitionLocator routerWriter,
       MongoRouteDefinitionRepository mongoJpa) {
     this.routerWriter = routerWriter;
     this.mongoJpa = mongoJpa;
   }
+
   /**
    * 保存路由信息
    */
@@ -42,7 +50,7 @@ public class RouteManagementHandler {
         .doOnNext(
             def -> routerWriter.saveRoute(Mono.just(this.convert(def))).subscribe()
         );
-    return ServerResponse.ok().contentType(APPLICATION_JSON).body(saved, MongoRouteDefinition.class);
+    return ok().contentType(APPLICATION_JSON).body(saved, MongoRouteDefinition.class);
   }
 
   /**
@@ -54,7 +62,7 @@ public class RouteManagementHandler {
         .doOnNext(
             def -> mongoJpa.deleteById(Mono.just(routeId)).subscribe()
         );
-    return ServerResponse.ok().contentType(APPLICATION_JSON).body(deleted, RouteDefinition.class);
+    return ok().contentType(APPLICATION_JSON).body(deleted, RouteDefinition.class);
   }
 
 
@@ -69,7 +77,7 @@ public class RouteManagementHandler {
             routerWriter.saveRoute(Mono.just(this.convert(mongoDef))).subscribe();
           }
         });
-    return ServerResponse.ok().contentType(APPLICATION_JSON).body(findOne, MongoRouteDefinition.class);
+    return ok().contentType(APPLICATION_JSON).body(findOne, MongoRouteDefinition.class);
   }
 
   /**
@@ -82,7 +90,7 @@ public class RouteManagementHandler {
             routerWriter.saveRoute(Mono.just(this.convert(mongoDef))).subscribe();
           }
         });
-    return ServerResponse.ok().contentType(APPLICATION_JSON).body(findMany, MongoRouteDefinition.class);
+    return ok().contentType(APPLICATION_JSON).body(findMany, MongoRouteDefinition.class);
   }
 
   /**

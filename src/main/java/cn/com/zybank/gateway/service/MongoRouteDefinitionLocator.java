@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono;
  */
 @Component
 @Slf4j
-public class GatewayRouteDefinitionService implements RouteDefinitionRepository {
+public class MongoRouteDefinitionLocator implements RouteDefinitionRepository {
 
   private final Map<String, RouteDefinition> routes = new ConcurrentHashMap<>(256);
 
@@ -28,16 +28,16 @@ public class GatewayRouteDefinitionService implements RouteDefinitionRepository 
   private final MongoRouteDefinitionRepository mongoJpa;
 
   @Autowired
-  public GatewayRouteDefinitionService(
+  public MongoRouteDefinitionLocator(
       MongoRouteDefinitionRepository mongoJpa,
       GatewayRoutesRefresher refresher) {
     this.mongoJpa = mongoJpa;
     this.refresher = refresher;
   }
 
-
   /**
-   * 获取自定义路由信息 <br /> 系统会在触发refresher.refreshRoutes()时自动调用改方法更新路由信息表
+   * 获取自定义路由信息
+   * <br /> 系统会在触发refresher.refreshRoutes()时自动调用该方法更新路由信息表
    */
   @Override
   public Flux<RouteDefinition> getRouteDefinitions() {
@@ -119,6 +119,4 @@ public class GatewayRouteDefinitionService implements RouteDefinitionRepository 
   private Flux<RouteDefinition> getRoutes() {
     return Flux.fromIterable(routes.values());
   }
-
-
 }
