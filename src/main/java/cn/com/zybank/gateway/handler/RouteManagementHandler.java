@@ -50,7 +50,6 @@ public class RouteManagementHandler {
    */
   public Mono<ServerResponse> delete(ServerRequest request) {
     String routeId = request.pathVariable("routeId");
-    log.info(routeId);
     Mono<RouteDefinition> deleted = routerWriter.deleteBy(Mono.just(routeId))
         .doOnNext(
             def -> mongoJpa.deleteById(Mono.just(routeId)).subscribe()
