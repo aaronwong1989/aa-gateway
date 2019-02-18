@@ -45,6 +45,7 @@ public class GatewayConfiguration {
         .andRoute(GET("/gw-mgr/routes").and(accept(APPLICATION_JSON)), handler::queryAll)
         .andRoute(GET("/gw-mgr/routes/{routeId}").and(accept(APPLICATION_JSON)),handler::queryOne)
         .andRoute(DELETE("/gw-mgr/routes/{routeId}").and(accept(APPLICATION_JSON)),handler::delete)
+        .andRoute(GET("/gw-mgr/routes-all").and(accept(APPLICATION_JSON)), handler::queryALL)
         ;
   }
 

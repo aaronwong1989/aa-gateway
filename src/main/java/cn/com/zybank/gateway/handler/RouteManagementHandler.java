@@ -7,8 +7,10 @@ import cn.com.zybank.gateway.entity.MongoRouteDefinition;
 import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
 import cn.com.zybank.gateway.service.MongoRouteDefinitionLocator;
 import java.net.URI;
+import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.gateway.route.CompositeRouteDefinitionLocator;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -33,6 +35,9 @@ public class RouteManagementHandler {
    * 更新mongoDB
    */
   private final MongoRouteDefinitionRepository mongoJpa;
+
+  @Resource
+  private CompositeRouteDefinitionLocator routeDefinitionLocator;
 
   @Autowired
   public RouteManagementHandler(MongoRouteDefinitionLocator routerWriter,
@@ -91,6 +96,14 @@ public class RouteManagementHandler {
           }
         });
     return ok().contentType(APPLICATION_JSON).body(findMany, MongoRouteDefinition.class);
+  }
+
+  /**
+   * 获取所有路由信息，包括:<br /> 1. properties静态路由 <br />  2. 服务发现路由 <br /> 3. 动态配置路由 <br />
+   */
+  public Mono<ServerResponse> queryALL(ServerRequest request) {
+    return ok().contentType(APPLICATION_JSON)
+        .body(routeDefinitionLocator.getRouteDefinitions(), RouteDefinition.class);
   }
 
   /**
