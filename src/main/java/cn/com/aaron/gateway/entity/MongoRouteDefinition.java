@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  * 存储在mongodb中的自定义路由信息
+ *
  * @author aaron
  */
 @Data
@@ -19,15 +20,26 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor
 @Document(collection = "gateway_routers")
 public class MongoRouteDefinition {
-  /** 路由id, mongodb中的 _id */
+
+  /**
+   * 路由id, mongodb中的 _id
+   */
   @Id
   private String routeId;
-  /** 路由谓词 */
+  /**
+   * 路由谓词
+   */
   private List<PredicateDefinition> predicates = new ArrayList<>();
-  /** 过滤器 */
+  /**
+   * 过滤器
+   */
   private List<FilterDefinition> filters = new ArrayList<>();
-  /** 跳转地址uri */
+  /**
+   * 跳转地址uri
+   */
   private String uri;
-  /** 路由顺序 */
+  /**
+   * 路由顺序
+   */
   private int order;
 }

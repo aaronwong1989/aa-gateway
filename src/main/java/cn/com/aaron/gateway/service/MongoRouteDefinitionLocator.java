@@ -36,8 +36,7 @@ public class MongoRouteDefinitionLocator implements RouteDefinitionRepository {
   }
 
   /**
-   * 获取自定义路由信息
-   * <br /> 系统会在触发refresher.refreshRoutes()时自动调用该方法更新路由信息表
+   * 获取自定义路由信息 <br /> 系统会在触发refresher.refreshRoutes()时自动调用该方法更新路由信息表
    */
   @Override
   public Flux<RouteDefinition> getRouteDefinitions() {
