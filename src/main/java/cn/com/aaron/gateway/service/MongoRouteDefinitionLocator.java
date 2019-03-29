@@ -1,7 +1,7 @@
-package cn.com.zybank.gateway.service;
+package cn.com.aaron.gateway.service;
 
-import cn.com.zybank.gateway.config.GatewayRoutesRefresher;
-import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
+import cn.com.aaron.gateway.config.GatewayRoutesRefresher;
+import cn.com.aaron.gateway.repository.MongoRouteDefinitionRepository;
 import java.net.URI;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

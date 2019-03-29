@@ -1,4 +1,4 @@
-package cn.com.zybank.gateway.entity;
+package cn.com.aaron.gateway.entity;
 
 import java.util.ArrayList;
 import java.util.List;

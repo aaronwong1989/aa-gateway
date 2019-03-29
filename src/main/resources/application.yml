@@ -4,12 +4,10 @@ server:
 spring:
   application:
     name: zy-gateway
-  # \u6570\u636E\u5E93\u914D\u7F6E
   data:
     mongodb:
       host: 192.168.56.129
       port: 27017
-  # \u9759\u6001\u8DEF\u7531\u914D\u7F6E
   cloud:
     gateway:
       routes:
@@ -17,8 +15,13 @@ spring:
           uri: https://github.com/aaronwong1989
           predicates:
             - Path=/github/{segment}
+            - Weight=service1,95
+        - id: host_route_github_v2
+          uri: https://github.com/aaronwong1989
+          predicates:
+            - Path=/github/{segment}
+            - Weight=service1,5
 
-# \u914D\u7F6E\u8F93\u51FA\u65E5\u5FD7
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
@@ -26,11 +29,9 @@ logging:
     sun.rmi: ERROR
     org.mongodb.driver: ERROR
 
-
-#\u5F00\u542F\u7AEF\u70B9, \u5F00\u53D1\u5B8C\u6210\u8FD9\u4E2A\u529F\u80FD\u540E\u5C31\u53EF\u4EE5\u6CE8\u91CA\u6389\u4E0B\u9762\u914D\u7F6E\u4E86
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: '*'
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ["prometheus"]
+      base-path: "/actuator/"

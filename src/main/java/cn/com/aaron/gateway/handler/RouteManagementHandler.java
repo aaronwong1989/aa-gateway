@@ -1,11 +1,11 @@
-package cn.com.zybank.gateway.handler;
+package cn.com.aaron.gateway.handler;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-import cn.com.zybank.gateway.entity.MongoRouteDefinition;
-import cn.com.zybank.gateway.repository.MongoRouteDefinitionRepository;
-import cn.com.zybank.gateway.service.MongoRouteDefinitionLocator;
+import cn.com.aaron.gateway.entity.MongoRouteDefinition;
+import cn.com.aaron.gateway.repository.MongoRouteDefinitionRepository;
+import cn.com.aaron.gateway.service.MongoRouteDefinitionLocator;
 import java.net.URI;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
